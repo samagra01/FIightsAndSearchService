@@ -1,8 +1,9 @@
 const express = require("express");
 
 const {PORT} = require('./config/ServerConfig');
-const { City }= require('./models/index')
+
 const bodyParser = require("body-parser");
+const CityRepository = require('./repository/city-repository'); // here i have required the class 
 
 const setupAndStartServer =  async ()=> {
      //  create the express object  
@@ -12,10 +13,9 @@ const setupAndStartServer =  async ()=> {
      
     app.listen(PORT,async ()=> {
         console.log(`Server started at ${PORT}`);  
-        console.log(City);
-        await City.create({
-          name: "New Delhi",
-        });
+        const repo = new CityRepository();// new object of the class city repository // 
+        repo.createCity({name:"New Dehli"});
+        
      }); 
      
 }
