@@ -1,20 +1,20 @@
 const express = require("express");
-
+const bodyParser = require("body-parser");
 const {PORT} = require('./config/ServerConfig');
 
-const bodyParser = require("body-parser");
-const CityRepository = require('./repository/city-repository'); // here i have required the class 
+const ApiRoutes = require('./routes/index');
+
 
 const setupAndStartServer =  async ()=> {
      //  create the express object  
      const app = express();
      app.use(bodyParser.json());
      app.use(bodyParser.urlencoded({extended: true}));
+     app.use('/api', ApiRoutes);
      
     app.listen(PORT,async ()=> {
         console.log(`Server started at ${PORT}`);  
-        const repo = new CityRepository();// new object of the class city repository // 
-        repo.createCity({name:"New Dehli"});
+       
         
      }); 
      
